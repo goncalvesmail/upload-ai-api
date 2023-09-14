@@ -1,1 +1,33 @@
-get http://localhost:3333
+GET http://localhost:3333/prompts
+
+###
+
+POST http://localhost:3333/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="peixe.mp3"
+Content-Type: audio/mpeg
+
+< ./peixe.mp3
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+POST http://localhost:3333/videos/5a8e4d05-4d86-41c8-a09b-8e9fc391b1e1/transcription
+Content-Type: application/json
+
+{
+    "prompt":"piada, peixe, meme whatsapp"
+}
+
+###
+
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+    "videoId": "5a8e4d05-4d86-41c8-a09b-8e9fc391b1e1",
+    "template": "Gere um resumo sucínto da transcrição do vídeo informado a seguir: '''{transcription}'''",
+    "temperature": 0.5
+}
